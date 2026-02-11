@@ -2,6 +2,10 @@ import { useState, useEffect, useRef, useMemo } from "react"; // usememo -> 필�
 import { v4 as uuid4 } from "uuid";
 import TodoInput from "./TodoInput";
 import TodoItem from "./TodoItem";
+import { TEXT_CLASS } from "../constants/config";
+import TodofilterButton from "./TodofilterButton";
+import TodoCheckButton from "./TodoCheckButton";
+import TodoCompleteButton from "./TodoCompleteButton";
 
 export default function TodoList() {
     const [newTodos, setNewTodos] = useState(""); // 입력 받는 값 저장
@@ -9,6 +13,7 @@ export default function TodoList() {
     const [IsEdit, setIsEdit] = useState(null); // 편집 중인 id 확인 편집 중이 아니라면 null
     const [editText, setEditText] = useState(""); // 편집 중인(수정한 값) 텍스트 저장
     const [filter, setFilter] = useState("all");
+    // const [bgImage, setBgImage] = useState(0);
 
     const [todos, setTodos] = useState(() => {
         // 첫 마운트 시 로컬 스토리지에서 데이터 불러오기
@@ -19,6 +24,15 @@ export default function TodoList() {
             return [];
         }
     });
+
+    // const bgChange = useCallback(() => {
+    //     setBgImage((prev) => (prev + 1) % BACKGROUND_IMAGE.length);
+    // }, []);
+
+    // useEffect(() => {
+    //     const id = setInterval(bgChange, 30000);
+    //     return () => clearInterval(id);
+    // }, [bgChange]);
 
     useEffect(() => {
         localStorage.setItem("todos", JSON.stringify(todos));
@@ -61,7 +75,7 @@ export default function TodoList() {
     const editSaveTodo = (id) => {
         setTodos(
             todos.map((t) => (t.id === id ? { ...t, text: editText } : t)), // 배열을 돌면서 todo의 id와 같으면 새객체 or 그대로 유지
-        ), // text만 새 값으로 덮어쓰기
+        ) // text만 새 값으로 덮어쓰기
             setIsEdit(null); // 수정 종료
         setEditText(""); //  input 초기화
     };
@@ -77,8 +91,15 @@ export default function TodoList() {
 
     const ButtonClick = () => {
         inputFocus.current.focus(); // 입력창 포커스
+    };
+    const MaxIdx = 5;
+    const addTodo = () => {
         // 입력창의 텍스트를 새로운 todo 객체로 만들어서 기존 목록 맨 뒤에 붙이는 함수
         if (newTodos.trim().length == 0) return; // 공백 입력 방지 return으로 함수 종료
+        if (todos.length >= MaxIdx) {
+            alert(`최대 ${MaxIdx}개 까지 등록할 수 있습니다.`);
+            return;
+        }
         setTodos((prev) => [
             // 기존 목록 복사 & 새 객체 추가
             ...prev,
@@ -92,47 +113,59 @@ export default function TodoList() {
         return todos.filter((todo) => {
             // 필터링된 항목만 반환
             if (filter === "all") return true;
-            if (filter === "completed") return !todo.completed; // 미완료만
-            if (filter === "uncompleted") return todo.completed; // 완료만
+            if (filter === "completed") return todo.completed; // 미완료만
+            if (filter === "uncompleted") return !todo.completed; // 완료만
             return true;
         });
     }, [filter, todos]); // 의존성 배열 확인
 
-    return (
-        <>
-            <h1>Todo List</h1>
-            <h1>오늘의 남은 할일: {remainTodos}개</h1>
-            <button onClick={() => setFilter("all")}>전체</button>
-            <button onClick={() => setFilter("completed")}>미완료</button>
-            <button onClick={() => setFilter("uncompleted")}>완료</button>
-            <TodoItem
-                todos={filterTodos} // 필터링 된 항목만 전달
-                // filterTodos={filterTodos}
-                time={time}
-                toggleCheck={toggleCheckTodo}
-                removeTodo={removeTodo}
-                IsEdit={IsEdit}
-                editText={editText}
-                setEditText={setEditText}
-                editTodo={editTodo}
-                editSaveTodo={editSaveTodo}
-                editCancelTodo={editCancelTodo}
-            />
+    //----------------------------------------------------- 렌더링 ----------------------------------------------------------------
 
+    return (
+        <div className="relative w-full h-dvh md:h-screen lg:h-screen bg-stone-200 min-h-screen px-2 sm:px-4 lg:px-8 py-2 sm:py-4 flex flex-col">
+            {/* <div className="relative w-full h-dvh md:h-screen lg:h-screen  min-h-screen px-4 sm:px-6 lg:px-8 py-2 sm:py-8 overflow-hidden flex flex-col"></div> */}
+            {/* <div
+                className={`${BACKGROUND_IMAGE} fixed inset-0 -z-10 bg-cover `}
+                style={{
+                    backgroundImage: `url(${BACKGROUND_IMAGE[bgImage]})`,
+                }}
+            /> */}
+
+            <span
+                className={`${TEXT_CLASS.text} w-full justify-center flex items-center  gap-4 p-4`}
+            >
+                <TodoCompleteButton setFilter={setFilter} />
+            </span>
+            <div className="flex-1 overflow-y-auto sm:px-4">
+                <TodoItem
+                    className="w-full text-center"
+                    todos={filterTodos} // 필터링 된 항목만 전달
+                    // filterTodos={filterTodos}
+                    time={time}
+                    toggleCheck={toggleCheckTodo}
+                    removeTodo={removeTodo}
+                    IsEdit={IsEdit}
+                    editText={editText}
+                    setEditText={setEditText}
+                    editTodo={editTodo}
+                    editSaveTodo={editSaveTodo}
+                    editCancelTodo={editCancelTodo}
+                />
+            </div>
             <TodoInput
                 onChange={handleChange}
                 value={newTodos}
-                addTodo={ButtonClick}
-                ref={inputFocus}
+                addTodo={addTodo}
             />
-            <div>
-                <button onClick={ButtonClick}>추가</button>
-                <button onClick={toggleAllCheckTodo}>
-                    {todos.every((t) => t.completed)
-                        ? "모두 해제"
-                        : "모두 체크"}
-                </button>
+
+            <div className="shrink-0 p-2 sm:p-4 border-t flex flex-col gap-1">
+                <TodofilterButton remainTodos={remainTodos} />
+                <TodoCheckButton
+                    toggleAllCheckTodo={toggleAllCheckTodo}
+                    todos={todos}
+                />
+                {/* <button onClick={addTodo}>추가</button> */}
             </div>
-        </>
+        </div>
     );
 }
