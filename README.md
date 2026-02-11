@@ -19,9 +19,13 @@ If you are developing a production application, we recommend using TypeScript wi
 
 React Todo List
 할 일관리 웹앱입니다.
+
 Features
 
 -   Todo 추가/삭제
+-   Todo 수정
+-   Todo Input 엔터키로 입력
+-   Todo 취소/완료
 
 Tech Stack
 

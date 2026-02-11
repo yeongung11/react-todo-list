@@ -1,4 +1,4 @@
-export default function TodoInput({ value, onChange, addTodo }) {
+export default function TodoInput({ value, onChange, addTodo, ref }) {
     // console.log("props", { value, onChange, addTodo });
     return (
         <>
@@ -8,6 +8,7 @@ export default function TodoInput({ value, onChange, addTodo }) {
                 placeholder="입력하세요"
                 onChange={onChange}
                 value={value}
+                ref={ref}
                 onKeyDown={(e) => e.key === "Enter" && addTodo()}
             />
         </>
