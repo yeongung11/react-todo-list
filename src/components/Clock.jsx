@@ -18,7 +18,7 @@ export default function Clock({ time }) {
                         hour: "2-digit",
                     })}
                 </h2>
-                <span className={`${TEXT_CLASS.text} text-5xl`}>
+                <span className={`${TEXT_CLASS.text} text-5xl mb-8`}>
                     {greeting}
                 </span>
             </div>

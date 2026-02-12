@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react"; // usememo -> 필터링 결과 캐싱 useRef -> 특정 DOM 요소에 접근
+import { useState, useEffect, useMemo } from "react"; // usememo -> 필터링 결과 캐싱 useRef -> 특정 DOM 요소에 접근
 import { v4 as uuid4 } from "uuid";
 import TodoInput from "./TodoInput";
 import TodoItem from "./TodoItem";
@@ -13,7 +13,6 @@ export default function TodoList() {
     const [IsEdit, setIsEdit] = useState(null); // 편집 중인 id 확인 편집 중이 아니라면 null
     const [editText, setEditText] = useState(""); // 편집 중인(수정한 값) 텍스트 저장
     const [filter, setFilter] = useState("all");
-    // const [bgImage, setBgImage] = useState(0);
 
     const [todos, setTodos] = useState(() => {
         // 첫 마운트 시 로컬 스토리지에서 데이터 불러오기
@@ -24,15 +23,6 @@ export default function TodoList() {
             return [];
         }
     });
-
-    // const bgChange = useCallback(() => {
-    //     setBgImage((prev) => (prev + 1) % BACKGROUND_IMAGE.length);
-    // }, []);
-
-    // useEffect(() => {
-    //     const id = setInterval(bgChange, 30000);
-    //     return () => clearInterval(id);
-    // }, [bgChange]);
 
     useEffect(() => {
         localStorage.setItem("todos", JSON.stringify(todos));
@@ -67,7 +57,7 @@ export default function TodoList() {
 
     const editTodo = (id) => {
         // 수정 버튼 클릭시 실행하는 편집 담당 함수
-        const todo = todos.find((t) => t.id === id); // todos 배열에서 id가 같은 첫번째 항목을 찾아서 todo에 저장( 수정버튼 클릭한 항목 선택)
+        const todo = todos.find((t) => t.id === id); // todos 배열에서 id가 같은 첫번째 항목을 찾아서 todo에 저장(수정버튼 클릭한 항목 선택)
         setIsEdit(id); // 편집 중인 id 설정
         setEditText(todo.text); // input에 기존 텍스트 채우기
     };
@@ -75,8 +65,8 @@ export default function TodoList() {
     const editSaveTodo = (id) => {
         setTodos(
             todos.map((t) => (t.id === id ? { ...t, text: editText } : t)), // 배열을 돌면서 todo의 id와 같으면 새객체 or 그대로 유지
-        ) // text만 새 값으로 덮어쓰기
-            setIsEdit(null); // 수정 종료
+        ); // text만 새 값으로 덮어쓰기
+        setIsEdit(null); // 수정 종료
         setEditText(""); //  input 초기화
     };
 
@@ -85,13 +75,8 @@ export default function TodoList() {
         setEditText("");
     }; // 수정 종료
 
-    const inputFocus = useRef(null); // 특정 DOM 요소에 접근할 수 있는 ref 생성
-
     const remainTodos = todos.filter((t) => !t.completed).length; // 체크박스가 안된 항목 개수
 
-    const ButtonClick = () => {
-        inputFocus.current.focus(); // 입력창 포커스
-    };
     const MaxIdx = 5;
     const addTodo = () => {
         // 입력창의 텍스트를 새로운 todo 객체로 만들어서 기존 목록 맨 뒤에 붙이는 함수
@@ -123,14 +108,6 @@ export default function TodoList() {
 
     return (
         <div className="relative w-full h-dvh md:h-screen lg:h-screen bg-stone-200 min-h-screen px-2 sm:px-4 lg:px-8 py-2 sm:py-4 flex flex-col">
-            {/* <div className="relative w-full h-dvh md:h-screen lg:h-screen  min-h-screen px-4 sm:px-6 lg:px-8 py-2 sm:py-8 overflow-hidden flex flex-col"></div> */}
-            {/* <div
-                className={`${BACKGROUND_IMAGE} fixed inset-0 -z-10 bg-cover `}
-                style={{
-                    backgroundImage: `url(${BACKGROUND_IMAGE[bgImage]})`,
-                }}
-            /> */}
-
             <span
                 className={`${TEXT_CLASS.text} w-full justify-center flex items-center  gap-4 p-4`}
             >

@@ -2,6 +2,12 @@ import EmptyTodo from "./EmptyTodo";
 import Clock from "./Clock";
 import { TEXT_CLASS } from "../constants/config";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+    PencilIcon,
+    XMarkIcon,
+    CheckIcon,
+    TrashIcon,
+} from "@heroicons/react/24/outline";
 
 export default function TodoItem({
     todos,
@@ -24,7 +30,7 @@ export default function TodoItem({
                     <Clock time={time} />
                     <ul
                         layout
-                        className="overflow-hidden h-full"
+                        className="w-full h-full"
                         style={{ position: "relative" }}
                     >
                         <AnimatePresence mode="popLayout">
@@ -38,12 +44,12 @@ export default function TodoItem({
                                         exit={{ opacity: 0, y: 12 }}
                                         transition={{ duration: 0.4 }}
                                         key={todo.id}
-                                        className={`${TEXT_CLASS.text} w-full p-1.5 sm:p-2 flex items-center justify-between gap-1 sm:gap-3 h-11 border-border-stone-300 pl-10 pr-16 relative`}
+                                        className={`${TEXT_CLASS.text}  p-1.5 sm:p-2 flex items-center justify-center gap-1 sm:gap-3 h-11 border-border-stone-300 pl-10 pr-16 relative`}
                                         // className={`${TEXT_CLASS.text} w-full p-1.5 sm:p-2.5 flex items-center gap-1 sm:gap-2 h-9 sm:h-11 border-b border-stone-300`}
                                     >
                                         <div className="shrink-0">
                                             <input
-                                                className="w-4 h-4 rounded accent-emerald-500 sm:w-5 sm:h-5"
+                                                className="w-3 h-3 bg-transparent focus:ring-2 focus:ring-stone-300 border-stone-400 rounded sm:w-3 sm:h-3"
                                                 type="checkbox"
                                                 checked={todo.completed}
                                                 onChange={() =>
@@ -51,10 +57,10 @@ export default function TodoItem({
                                                 } //  왜 toggleCheck가 아니라 화살표 함수로 감싸지? => 클릭할 때만 실행되게 해야하는데 그냥 쓰게 되면 렌더링 될때마다 실행되기 떄문.
                                             />
                                         </div>
-                                        <div className="flex-none w-[45%] sm: w-[55%] min-w-[100px] px-0.5 sm:px-1 truncate">
+                                        <div className="text-center flex-none w-[15%] sm: w-[25%] min-w-[100px] px-0.5 sm:px-1 truncate">
                                             {IsEditing ? ( // 편집 중이라면 ? input 보여주기 : span(텍스트) 보여주기
                                                 <input
-                                                    className={`${TEXT_CLASS.text} w-full text-lg bg-transparent border-none focus:outline-none`}
+                                                    className={`${TEXT_CLASS.text}  w-full text-lg bg-transparent border-none focus:outline-none`}
                                                     type="text"
                                                     value={editText}
                                                     onChange={(e) =>
@@ -65,7 +71,7 @@ export default function TodoItem({
                                                 />
                                             ) : (
                                                 <span
-                                                    claaName="text-left"
+                                                    claaName="text-center"
                                                     style={{
                                                         textDecoration: todo.completed
                                                             ? "line-through"
@@ -79,7 +85,7 @@ export default function TodoItem({
 
                                         <div className="shrink-0 flex gap-1 sm:gap-2">
                                             <button
-                                                className={`${TEXT_CLASS.li} `}
+                                                className={`${TEXT_CLASS.li} w-10 h-8`}
                                                 onClick={
                                                     IsEditing
                                                         ? editCancelTodo
@@ -101,12 +107,12 @@ export default function TodoItem({
                                             )}
                                         </div>
 
-                                        <button
-                                            className={`${TEXT_CLASS.li} shrink-0 ml-2`}
+                                        <TrashIcon
+                                            className={`${TEXT_CLASS.li} w-8 h-8 shrink-0 `}
                                             onClick={() => removeTodo(todo.id)}
                                         >
                                             삭제
-                                        </button>
+                                        </TrashIcon>
                                     </motion.li>
                                 );
                             })}
