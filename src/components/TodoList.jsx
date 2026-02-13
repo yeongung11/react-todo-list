@@ -77,7 +77,7 @@ export default function TodoList() {
 
     const remainTodos = todos.filter((t) => !t.completed).length; // 체크박스가 안된 항목 개수
 
-    const MaxIdx = 5;
+    const MaxIdx = 8;
     const addTodo = () => {
         // 입력창의 텍스트를 새로운 todo 객체로 만들어서 기존 목록 맨 뒤에 붙이는 함수
         if (newTodos.trim().length == 0) return; // 공백 입력 방지 return으로 함수 종료
@@ -135,7 +135,7 @@ export default function TodoList() {
                 addTodo={addTodo}
             />
 
-            <div className="shrink-0 p-2 sm:p-4 border-t flex flex-col gap-1">
+            <div className="shrink-0 p-2 sm:p-4 flex flex-col gap-1">
                 <TodofilterButton remainTodos={remainTodos} />
                 <TodoCheckButton
                     toggleAllCheckTodo={toggleAllCheckTodo}

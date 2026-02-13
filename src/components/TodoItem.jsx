@@ -49,7 +49,7 @@ export default function TodoItem({
                                     >
                                         <div className="shrink-0">
                                             <input
-                                                className="w-3 h-3 bg-transparent focus:ring-2 focus:ring-stone-300 border-stone-400 rounded sm:w-3 sm:h-3"
+                                                className="w-4 h-4 bg-transparent border-white/90 rounded sm:w-3 sm:h-3"
                                                 type="checkbox"
                                                 checked={todo.completed}
                                                 onChange={() =>
@@ -57,10 +57,10 @@ export default function TodoItem({
                                                 } //  왜 toggleCheck가 아니라 화살표 함수로 감싸지? => 클릭할 때만 실행되게 해야하는데 그냥 쓰게 되면 렌더링 될때마다 실행되기 떄문.
                                             />
                                         </div>
-                                        <div className="text-center flex-none w-[15%] sm: w-[25%] min-w-[100px] px-0.5 sm:px-1 truncate">
+                                        <div className="text-center flex-none w-[25%] sm: w-[35%] min-w-[100px] px-0.5 sm:px-1 truncate">
                                             {IsEditing ? ( // 편집 중이라면 ? input 보여주기 : span(텍스트) 보여주기
                                                 <input
-                                                    className={`${TEXT_CLASS.text}  w-full text-lg bg-transparent border-none focus:outline-none`}
+                                                    className={`${TEXT_CLASS.text} bg-transparent border-none `}
                                                     type="text"
                                                     value={editText}
                                                     onChange={(e) =>

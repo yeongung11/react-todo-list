@@ -10,7 +10,7 @@ export default function Clock({ time }) {
             : "Good Evening";
     return (
         <>
-            <div className=" flex flex-col items-center justify-center ">
+            <div className=" flex flex-col items-center justify-center mr-3">
                 <h2 className={`${TEXT_CLASS.text} text-9xl mb-4`}>
                     {time.toLocaleTimeString("ko-KR", {
                         hour12: false,
