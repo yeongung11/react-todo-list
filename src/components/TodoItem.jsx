@@ -28,9 +28,9 @@ export default function TodoItem({
             {hasTodos ? (
                 <div>
                     <Clock time={time} />
-                    <ul
+                    <motion.ul
                         layout
-                        className="w-full h-full"
+                        className="w-full h-full mt-7"
                         style={{ position: "relative" }}
                     >
                         <AnimatePresence mode="popLayout">
@@ -45,7 +45,6 @@ export default function TodoItem({
                                         transition={{ duration: 0.4 }}
                                         key={todo.id}
                                         className={`${TEXT_CLASS.text}  p-1.5 sm:p-2 flex items-center justify-center gap-1 sm:gap-3 h-11 border-border-stone-300 pl-10 pr-16 relative`}
-                                        // className={`${TEXT_CLASS.text} w-full p-1.5 sm:p-2.5 flex items-center gap-1 sm:gap-2 h-9 sm:h-11 border-b border-stone-300`}
                                     >
                                         <div className="shrink-0">
                                             <input
@@ -57,7 +56,7 @@ export default function TodoItem({
                                                 } //  왜 toggleCheck가 아니라 화살표 함수로 감싸지? => 클릭할 때만 실행되게 해야하는데 그냥 쓰게 되면 렌더링 될때마다 실행되기 떄문.
                                             />
                                         </div>
-                                        <div className="text-center flex-none w-[25%] sm: w-[35%] min-w-[100px] px-0.5 sm:px-1 truncate">
+                                        <div className="text-center flex-none w-[25%] sm:w-[35%] min-w-[100px] px-0.5 sm:px-1 truncate">
                                             {IsEditing ? ( // 편집 중이라면 ? input 보여주기 : span(텍스트) 보여주기
                                                 <input
                                                     className={`${TEXT_CLASS.text} bg-transparent border-none `}
@@ -71,7 +70,7 @@ export default function TodoItem({
                                                 />
                                             ) : (
                                                 <span
-                                                    claaName="text-center"
+                                                    className="text-center"
                                                     style={{
                                                         textDecoration: todo.completed
                                                             ? "line-through"
@@ -93,7 +92,11 @@ export default function TodoItem({
                                                               editTodo(todo.id)
                                                 }
                                             >
-                                                {IsEditing ? "취소" : "수정"}
+                                                {IsEditing ? (
+                                                    <XMarkIcon className="w-5 h-5" />
+                                                ) : (
+                                                    <PencilIcon className="w-5 h-5" />
+                                                )}
                                             </button>
                                             {IsEditing && ( // 편집 중일 때만 완료 버튼
                                                 <button
@@ -102,7 +105,7 @@ export default function TodoItem({
                                                         editSaveTodo(todo.id)
                                                     }
                                                 >
-                                                    완료
+                                                    <CheckIcon className="w-5 h-5" />
                                                 </button>
                                             )}
                                         </div>
@@ -117,7 +120,7 @@ export default function TodoItem({
                                 );
                             })}
                         </AnimatePresence>
-                    </ul>
+                    </motion.ul>
                 </div>
             ) : (
                 <EmptyTodo />
