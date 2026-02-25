@@ -30,7 +30,7 @@ export default function TodoItem({
                     <Clock time={time} />
                     <motion.ul
                         layout
-                        className="w-full h-full mt-7"
+                        className="w-full h-full mt-7 flex flex-col items-center"
                         style={{ position: "relative" }}
                     >
                         <AnimatePresence mode="popLayout">
@@ -43,20 +43,10 @@ export default function TodoItem({
                                         exit={{ opacity: 0, y: 12 }}
                                         transition={{ duration: 0.4 }}
                                         key={todo.id}
-                                        className={`${TEXT_CLASS.text}  p-1.5 sm:p-2 flex items-center justify-between gap-1 sm:gap-3 h-11 border-border-stone-300 pr-16 relative`}
+                                        className="flex items-center p-1.5 sm:p-2 h-12 border-border-stone-300 mx-4 my-1 rounded-lg"
                                     >
-                                        {/* <div className="shrink-0"> */}
-                                        {/* <input
-                                                className="w-4 h-4 bg-transparent appearance-none border-2 border-black/50 rounded checked:bg-white/90 checked:border-white/90 sm:w-3 sm:h-3"
-                                                type="checkbox"
-                                                checked={todo.completed}
-                                                onChange={() =>
-                                                    toggleCheck(todo.id)
-                                                } //  왜 toggleCheck가 아니라 화살표 함수로 감싸지? => 클릭할 때만 실행되게 해야하는데 그냥 쓰게 되면 렌더링 될때마다 실행되기 떄문.
-                                            /> */}
-                                        {/* </div> */}
                                         <div
-                                            className={`flex-1 min-w-0 px-2 cursor-pointer select-none transition-all duration-200 hover:brightness-105 flex items-center justify-center
+                                            className={`w-48 sm:w-56 md:w-64 cursor-pointer select-none transition-all hover:brightness-105 flex items-center
                                     ${
                                         todo.completed
                                             ? "line-through opacity-60 hover:opacity-80"
@@ -64,43 +54,46 @@ export default function TodoItem({
                                     }`}
                                             onClick={() => toggleCheck(todo.id)}
                                         >
-                                            <div className="text-center flex-none w-[25%] sm:w-[35%] min-w-[100px] px-0.5 sm:px-1 truncate">
-                                                {IsEditing ? ( // 편집 중이라면 ? input 보여주기 : span(텍스트) 보여주기
-                                                    <input
-                                                        className={`${TEXT_CLASS.text} bg-transparent border-none 
-             w-full px-0.5 text-center leading-none`}
-                                                        type="text"
-                                                        value={editText}
-                                                        onChange={(e) =>
-                                                            setEditText(
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                    />
-                                                ) : (
-                                                    <span
-                                                        className="text-center "
-                                                        style={{
-                                                            textDecoration: todo.completed
-                                                                ? "line-through"
-                                                                : "none",
-                                                        }}
-                                                    >
-                                                        {todo.text}
-                                                    </span>
-                                                )}
-                                            </div>
+                                            {IsEditing ? ( // 편집 중이라면 ? input 보여주기 : span(텍스트) 보여주기
+                                                <input
+                                                    autoFocus
+                                                    className="bg-transparent border-none w-full sm:w-20 h-4 sm:h-5 px-1 py-0.5 
+             text-xs text-center leading-4 font-normal text-gray-800 dark:text-gray-200
+             shadow-none outline-none ring-0 focus:outline-none focus:ring-0 mx-auto block"
+                                                    type="text"
+                                                    value={editText}
+                                                    onChange={(e) =>
+                                                        setEditText(
+                                                            e.target.value,
+                                                        )
+                                                    }
+                                                    onClick={(e) =>
+                                                        e.stopPropagation()
+                                                    }
+                                                />
+                                            ) : (
+                                                <span
+                                                    className="text-sm text-center truncate block font-normal text-gray-800 dark:text-gray-200"
+                                                    style={{
+                                                        textDecoration: todo.completed
+                                                            ? "line-through"
+                                                            : "none",
+                                                    }}
+                                                >
+                                                    {todo.text}
+                                                </span>
+                                            )}
                                         </div>
 
                                         <div className="shrink-0 flex gap-1 sm:gap-2">
                                             <button
                                                 className={`${TEXT_CLASS.li} w-10 h-8`}
-                                                onClick={
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
                                                     IsEditing
-                                                        ? editCancelTodo
-                                                        : () =>
-                                                              editTodo(todo.id)
-                                                }
+                                                        ? editCancelTodo()
+                                                        : editTodo(todo.id);
+                                                }}
                                             >
                                                 {IsEditing ? (
                                                     <XMarkIcon className="w-5 h-5" />
@@ -122,7 +115,10 @@ export default function TodoItem({
 
                                         <TrashIcon
                                             className={`${TEXT_CLASS.li} w-8 h-8 shrink-0 `}
-                                            onClick={() => removeTodo(todo.id)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                removeTodo(todo.id);
+                                            }}
                                         >
                                             삭제
                                         </TrashIcon>
