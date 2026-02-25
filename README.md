@@ -23,3 +23,5 @@ Getting Started
 -   Node.js
 
 Trouble Shooting
+
+-   함수 arugument 문제

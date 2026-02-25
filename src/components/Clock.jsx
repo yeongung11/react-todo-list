@@ -11,14 +11,16 @@ export default function Clock({ time }) {
     return (
         <>
             <div className=" flex flex-col items-center justify-center mr-3">
-                <h2 className={`${TEXT_CLASS.text} text-9xl mb-4`}>
+                <h2
+                    className={`${TEXT_CLASS.text}   text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl mb-4`}
+                >
                     {time.toLocaleTimeString("ko-KR", {
                         hour12: false,
                         minute: "2-digit",
                         hour: "2-digit",
                     })}
                 </h2>
-                <span className={`${TEXT_CLASS.text} text-5xl mb-8`}>
+                <span className={`${TEXT_CLASS.text}  text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-8`}>
                     {greeting}
                 </span>
             </div>
