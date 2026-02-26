@@ -1,6 +1,7 @@
 import EmptyTodo from "./EmptyTodo";
 import Clock from "./Clock";
 import { TEXT_CLASS } from "../constants/config";
+//eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import {
     PencilIcon,
@@ -58,7 +59,7 @@ export default function TodoItem({
                                                 <input
                                                     autoFocus
                                                     className="bg-transparent border-none w-full sm:w-20 h-4 sm:h-5 px-1 py-0.5 
-             text-xs text-center leading-4 font-normal text-gray-800 dark:text-gray-200
+              text-center leading-4 dark:text-gray-200
              shadow-none outline-none ring-0 focus:outline-none focus:ring-0 mx-auto block"
                                                     type="text"
                                                     value={editText}

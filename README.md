@@ -38,4 +38,16 @@ Trouble Shooting
 
 -   `toggleCheck div`를 밖으로 분리하고 `input`에 `e.stopPropagation`을 추가해 부모로 전파되는 이벤트를 차단
 
-<!-- -   함수 arugument 문제 -->
+### 2.
+
+에러
+
+-   `import { motion, AnimatePresence } from "framer-motion";`에서 'motion is defined but never used...`라는 메시지 출력
+
+원인
+
+-   `motion`을 실제로 쓰고는 있지만 `motion.ul`, `motion.li`와 같이 점 표기법을 사용시 ESLint에서 인식을 못함
+
+해결
+
+-   `import` 위에 `// eslint-disable-next-line no-unused-vars` 코드 자체는 이상이 없으므로 해당 코드를 주석으로 추가해 다음 줄 `ESLint` 검사를 비활성화 시킴
