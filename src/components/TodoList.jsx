@@ -117,7 +117,6 @@ export default function TodoList() {
                 <TodoItem
                     className="w-full text-center"
                     todos={filterTodos} // 필터링 된 항목만 전달
-                    // filterTodos={filterTodos}
                     time={time}
                     toggleCheck={toggleCheckTodo}
                     removeTodo={removeTodo}
@@ -141,7 +140,6 @@ export default function TodoList() {
                     toggleAllCheckTodo={toggleAllCheckTodo}
                     todos={todos}
                 />
-                {/* <button onClick={addTodo}>추가</button> */}
             </div>
         </div>
     );
