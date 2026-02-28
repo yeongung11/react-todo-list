@@ -2,8 +2,8 @@
 
 React Todo List 입니다.
 
-GitHub: https://github.com/yeongung11/react-todo-list
-Demo: https://react-todo-list-one-lime.vercel.app
+-   GitHub: https://github.com/yeongung11/react-todo-list
+-   Demo: https://react-todo-list-one-lime.vercel.app
 
 기술 스택
 
@@ -13,6 +13,7 @@ Demo: https://react-todo-list-one-lime.vercel.app
 -   Tailwind
 -   Framer Motion
 -   Heroicons
+-   Vercel
 
 기능
 
@@ -32,6 +33,7 @@ cd todolist
 npm install
 npm run dev
 ```
+
 
 Trouble Shooting
 
