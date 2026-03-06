@@ -1,6 +1,10 @@
 import { TEXT_CLASS } from "../constants/config";
 
-export default function Clock({ time }) {
+interface ClockProps {
+    time: Date;
+}
+
+export default function Clock({ time }: ClockProps) {
     const hour = time.getHours();
     const greeting =
         hour < 12
@@ -20,7 +24,9 @@ export default function Clock({ time }) {
                         hour: "2-digit",
                     })}
                 </h2>
-                <span className={`${TEXT_CLASS.text}  text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-8`}>
+                <span
+                    className={`${TEXT_CLASS.text}  text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-8`}
+                >
                     {greeting}
                 </span>
             </div>

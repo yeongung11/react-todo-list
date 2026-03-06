@@ -1,6 +1,20 @@
 import { TEXT_CLASS } from "../constants/config";
 
-export default function TodofilterButton({ toggleAllCheckTodo, todos }) {
+interface Todo {
+    id: string;
+    text: string;
+    completed: boolean;
+}
+
+interface TodoCheckButtonsProps {
+    toggleAllCheckTodo: () => void;
+    todos: Todo[];
+}
+
+export default function TodofilterButton({
+    toggleAllCheckTodo,
+    todos,
+}: TodoCheckButtonsProps) {
     return (
         <div className={`${TEXT_CLASS.text} text-center`}>
             <button onClick={toggleAllCheckTodo}>
