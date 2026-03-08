@@ -8,6 +8,7 @@ React Todo List 입니다.
 기술 스택
 
 -   React
+-   Typescript
 -   Vite
 -   Javascript
 -   Tailwind
@@ -33,7 +34,6 @@ cd todolist
 npm install
 npm run dev
 ```
-
 
 Trouble Shooting
 

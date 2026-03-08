@@ -1,4 +1,16 @@
-export default function TodoInput({ value, onChange, addTodo, ref }) {
+import { ChangeEvent } from "react";
+
+interface TodoInputProps {
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    value: string;
+    addTodo: () => void;
+}
+
+export default function TodoInput({
+    value,
+    onChange,
+    addTodo,
+}: TodoInputProps) {
     return (
         <div className="w-full justify-center flex  mb-8 ">
             <input
@@ -12,7 +24,6 @@ export default function TodoInput({ value, onChange, addTodo, ref }) {
                 type="text"
                 onChange={onChange}
                 value={value}
-                ref={ref}
                 onKeyDown={(e) => e.key === "Enter" && addTodo()}
             />
         </div>

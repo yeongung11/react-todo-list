@@ -1,6 +1,12 @@
 import { TEXT_CLASS } from "../constants/config";
 
-export default function TodofilterButton({ remainTodos }) {
+interface TodofilterButtonProps {
+    remainTodos: number;
+}
+
+export default function TodofilterButton({
+    remainTodos,
+}: TodofilterButtonProps) {
     return (
         <>
             <p className={`${TEXT_CLASS.text} text-center`}>
