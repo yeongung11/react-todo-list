@@ -1,6 +1,10 @@
 import { TEXT_CLASS } from "../constants/config";
 
-export default function TodofilterButton({ setFilter }) {
+interface TodofilterButtonProps {
+    setFilter: (filter: "all" | "completed" | "uncompleted") => void;
+}
+
+export default function TodofilterButton({ setFilter }: TodofilterButtonProps) {
     return (
         <>
             <div className="flex gap-4 mb-8 justify-between items-center px-4">
@@ -15,13 +19,13 @@ export default function TodofilterButton({ setFilter }) {
                 </button>
                 <button
                     className={`${TEXT_CLASS.CompleteButtonText} rounded`}
-                    onClick={() => setFilter("completed")}
+                    onClick={() => setFilter("uncompleted")}
                 >
                     미완료
                 </button>
                 <button
                     className={`${TEXT_CLASS.CompleteButtonText} rounded`}
-                    onClick={() => setFilter("uncompleted")}
+                    onClick={() => setFilter("completed")}
                 >
                     완료
                 </button>

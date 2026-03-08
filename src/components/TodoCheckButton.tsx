@@ -1,10 +1,6 @@
 import { TEXT_CLASS } from "../constants/config";
 
-interface Todo {
-    id: string;
-    text: string;
-    completed: boolean;
-}
+import type { Todo } from "../types/todo";
 
 interface TodoCheckButtonsProps {
     toggleAllCheckTodo: () => void;

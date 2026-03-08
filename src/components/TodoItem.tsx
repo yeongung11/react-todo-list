@@ -9,8 +9,27 @@ import {
     CheckIcon,
     TrashIcon,
 } from "@heroicons/react/24/outline";
+import type { Todo } from "../types/todo";
+
+interface TodoItemProps {
+    className?: string;
+    todos: Todo[];
+    time: Date;
+    toggleCheck: (id: string) => void;
+    removeTodo: (id: string) => void;
+    IsEdit: string | null;
+    editText: string;
+    setEditText: (text: string) => void;
+    editTodo: (id: string) => void;
+    editSaveTodo: (id: string) => void;
+    editCancelTodo: () => void;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    addTodo: () => void;
+}
 
 export default function TodoItem({
+    className,
     todos,
     time,
     toggleCheck,
@@ -21,7 +40,7 @@ export default function TodoItem({
     editTodo,
     editSaveTodo,
     setEditText,
-}) {
+}: TodoItemProps) {
     const hasTodos = todos.length > 0; // li가 없을 때(빈 화면)
 
     return (
