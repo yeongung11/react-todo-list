@@ -11,7 +11,7 @@ import type { Todo } from "../types/todo";
 export default function TodoList() {
     const [newTodos, setNewTodos] = useState<string>("");
     const [time, setTime] = useState<Date>(new Date());
-    const [IsEdit, setIsEdit] = useState<string | null>(null);
+    const [isEdit, setIsEdit] = useState<string | null>(null);
     const [editText, setEditText] = useState<string>("");
     const [filter, setFilter] = useState<"all" | "completed" | "uncompleted">(
         "all",
@@ -52,8 +52,10 @@ export default function TodoList() {
     };
 
     const toggleAllCheckTodo = () => {
-        const allChecked = todos.every((t) => t.completed);
-        setTodos(todos.map((t) => ({ ...t, completed: !allChecked })));
+        setTodos((prev) => {
+            const allChecked = prev.every((t) => t.completed);
+            return prev.map((t) => ({ ...t, completed: !allChecked }));
+        });
     };
 
     const editTodo = (id: string): void => {
@@ -64,6 +66,7 @@ export default function TodoList() {
     };
 
     const editSaveTodo = (id: string): void => {
+        if (editText.trim().length === 0) return;
         setTodos(
             todos.map((t) => (t.id === id ? { ...t, text: editText } : t)),
         );
@@ -80,7 +83,7 @@ export default function TodoList() {
 
     const MaxIdx = 8;
     const addTodo = () => {
-        if (newTodos.trim().length == 0) return;
+        if (newTodos.trim().length === 0) return;
         if (todos.length >= MaxIdx) {
             alert(`최대 ${MaxIdx}개 까지 등록할 수 있습니다.`);
             return;
@@ -117,7 +120,7 @@ export default function TodoList() {
                     time={time}
                     toggleCheck={toggleCheckTodo}
                     removeTodo={removeTodo}
-                    IsEdit={IsEdit}
+                    IsEdit={isEdit}
                     editText={editText}
                     setEditText={setEditText}
                     editTodo={editTodo}
